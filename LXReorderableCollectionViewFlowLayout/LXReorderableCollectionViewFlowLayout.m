@@ -71,7 +71,6 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
 @property (assign, nonatomic) CGPoint panTranslationInCollectionView;
 @property (strong, nonatomic) CADisplayLink *displayLink;
 
-@property (assign, nonatomic, readonly) id<LXReorderableCollectionViewDataSource> dataSource;
 @property (assign, nonatomic, readonly) id<LXReorderableCollectionViewDelegateFlowLayout> delegate;
 
 @end
@@ -138,7 +137,10 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
 }
 
 - (id<LXReorderableCollectionViewDataSource>)dataSource {
-    return (id<LXReorderableCollectionViewDataSource>)self.collectionView.dataSource;
+    if ( _dataSource == nil ) {
+        _dataSource = (id<LXReorderableCollectionViewDataSource>)self.collectionView.dataSource;
+    }
+    return _dataSource;
 }
 
 - (id<LXReorderableCollectionViewDelegateFlowLayout>)delegate {
