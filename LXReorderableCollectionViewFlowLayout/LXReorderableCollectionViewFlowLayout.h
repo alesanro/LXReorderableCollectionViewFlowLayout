@@ -22,7 +22,7 @@
 
 @end
 
-@protocol LXReorderableCollectionViewDataSource <UICollectionViewDataSource>
+@protocol LXReorderableCollectionViewDataSource <NSObject>
 
 @optional
 
