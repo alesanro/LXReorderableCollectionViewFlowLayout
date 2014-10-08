@@ -253,7 +253,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
                 distance = -contentOffset.x - contentInset.left;
             }
             
-            translation = CGPointMake(distance, 0.0f);
+            translation = CGPointMake(0.0f, 0.0f);
         } break;
         case LXScrollingDirectionRight: {
             CGFloat maxX = MAX(contentSize.width, frameSize.width) - frameSize.width + contentInset.right;
@@ -262,7 +262,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
                 distance = maxX - contentOffset.x;
             }
             
-            translation = CGPointMake(distance, 0.0f);
+            translation = CGPointMake(0.0f, 0.0f);
         } break;
         default: {
             // Do nothing...
@@ -386,7 +386,8 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
     switch (gestureRecognizer.state) {
         case UIGestureRecognizerStateBegan:
         case UIGestureRecognizerStateChanged: {
-            self.panTranslationInCollectionView = [gestureRecognizer translationInView:self.collectionView];
+            self.panTranslationInCollectionView = CGPointMake(0.0f, [gestureRecognizer translationInView:self.collectionView].y);
+            
             CGPoint viewCenter = self.currentView.center = LXS_CGPointAdd(self.currentViewCenter, self.panTranslationInCollectionView);
             
             [self invalidateLayoutIfNecessary];
@@ -475,7 +476,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
     }
     
     if ([self.panGestureRecognizer isEqual:gestureRecognizer]) {
-        return [self.longPressGestureRecognizer isEqual:otherGestureRecognizer] || [otherGestureRecognizer.view isKindOfClass:self.gestureRecognizerIgnoreViewClass];
+        return [self.longPressGestureRecognizer isEqual:otherGestureRecognizer] || [otherGestureRecognizer.view isKindOfClass:self.gestureRecognizerIgnoreViewClass];;
     }
     
     return NO;
