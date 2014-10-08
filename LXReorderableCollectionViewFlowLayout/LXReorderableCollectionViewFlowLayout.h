@@ -16,6 +16,8 @@
 @property (strong, nonatomic, readonly) UILongPressGestureRecognizer *longPressGestureRecognizer;
 @property (strong, nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;
 
+@property (assign, nonatomic) Class gestureRecognizerIgnoreViewClass;
+
 @property (assign, nonatomic) id<LXReorderableCollectionViewDataSource> dataSource;
 
 - (void)setUpGestureRecognizersOnCollectionView __attribute__((deprecated("Calls to setUpGestureRecognizersOnCollectionView method are not longer needed as setup are done automatically through KVO.")));
