@@ -16,6 +16,8 @@
 @property (strong, nonatomic, readonly) UILongPressGestureRecognizer *longPressGestureRecognizer;
 @property (strong, nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;
 
+@property (copy, nonatomic) void (^reorderStartAnimationBlock) (UIView *currentView);
+@property (copy, nonatomic) void (^reorderCompletionAnimationBlock) (UIView *currentView);
 @property (assign, nonatomic) Class gestureRecognizerIgnoreViewClass;
 
 @property (assign, nonatomic) id<LXReorderableCollectionViewDataSource> dataSource;

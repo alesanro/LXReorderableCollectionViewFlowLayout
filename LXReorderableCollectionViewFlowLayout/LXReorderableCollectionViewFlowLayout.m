@@ -319,9 +319,14 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
              animations:^{
                  __strong typeof(self) strongSelf = weakSelf;
                  if (strongSelf) {
-                     strongSelf.currentView.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
                      highlightedImageView.alpha = 0.0f;
                      imageView.alpha = 1.0f;
+                     if ( strongSelf.reorderStartAnimationBlock ) {
+                         strongSelf.reorderStartAnimationBlock( strongSelf.currentView );
+                     }
+                     else {
+                         strongSelf.currentView.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
+                     }
                  }
              }
              completion:^(BOOL finished) {
@@ -357,8 +362,13 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
                  delay:0.0
                  options:UIViewAnimationOptionBeginFromCurrentState
                  animations:^{
+                     
                      __strong typeof(self) strongSelf = weakSelf;
-                     if (strongSelf) {
+                     if ( strongSelf.reorderCompletionAnimationBlock != nil ) {
+                         strongSelf.reorderCompletionAnimationBlock( strongSelf.currentView );
+                         strongSelf.currentView.center = layoutAttributes.center;
+                     }
+                     else {
                          strongSelf.currentView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
                          strongSelf.currentView.center = layoutAttributes.center;
                      }
