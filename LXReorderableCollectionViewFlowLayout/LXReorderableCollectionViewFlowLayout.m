@@ -303,7 +303,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
             collectionViewCell.highlighted = NO;
             UIView *imageView = [collectionViewCell LX_snapshotView];
             imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            imageView.alpha = 0.0f;
+            imageView.alpha = 1.0f;
             
             [self.currentView addSubview:imageView];
             [self.currentView addSubview:highlightedImageView];
