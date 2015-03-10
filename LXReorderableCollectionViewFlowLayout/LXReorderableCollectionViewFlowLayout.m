@@ -140,10 +140,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
 }
 
 - (id<LXReorderableCollectionViewDataSource>)dataSource {
-    if ( _dataSource == nil ) {
-        _dataSource = (id<LXReorderableCollectionViewDataSource>)self.collectionView.dataSource;
-    }
-    return _dataSource;
+    return (id<LXReorderableCollectionViewDataSource>)self.collectionView.dataSource;
 }
 
 - (id<LXReorderableCollectionViewDelegateFlowLayout>)delegate {
