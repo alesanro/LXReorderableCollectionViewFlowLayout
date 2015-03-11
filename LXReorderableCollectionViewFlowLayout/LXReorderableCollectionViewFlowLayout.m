@@ -153,6 +153,22 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
         return;
     }
     
+    UICollectionViewCell *newCell = [self.collectionView cellForItemAtIndexPath:newIndexPath];
+    if ( previousIndexPath.item > newIndexPath.item ) {
+        // Moving up
+        // If hover point is below center of new cell don't swap cells
+        if ( self.currentView.center.y > newCell.center.y ) {
+            return;
+        }
+    }
+    else {
+        // Moving down
+        // If hover point is above center of new cell don't swap cells
+        if ( self.currentView.center.y < newCell.center.y ) {
+            return;
+        }
+    }
+    
     if ([self.dataSource respondsToSelector:@selector(collectionView:itemAtIndexPath:canMoveToIndexPath:)] &&
         ![self.dataSource collectionView:self.collectionView itemAtIndexPath:previousIndexPath canMoveToIndexPath:newIndexPath]) {
         return;
