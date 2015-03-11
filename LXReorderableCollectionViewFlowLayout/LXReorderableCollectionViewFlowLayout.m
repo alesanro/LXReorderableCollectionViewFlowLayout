@@ -308,12 +308,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
                 highlightedImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
                 [self.currentView addSubview:highlightedImageView];
                 
-                highlightedImageView.alpha = 1.0f;
                 imageView.alpha = 0.0f;
-            }
-            else {
-                highlightedImageView.alpha = 0.0f;
-                imageView.alpha = 1.0f;
             }
             
             [self.collectionView addSubview:self.currentView];
