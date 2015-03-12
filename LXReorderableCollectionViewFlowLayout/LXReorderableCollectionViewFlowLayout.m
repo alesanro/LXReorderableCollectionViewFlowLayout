@@ -293,24 +293,25 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
             self.currentView = [[UIView alloc] initWithFrame:collectionViewCell.frame];
             
             BOOL cellHighlightedWhenPickedUp = collectionViewCell.highlighted;
-            UIView *highlightedImageView;
-            UIView *imageView;
             
             collectionViewCell.highlighted = NO;
-            imageView = [collectionViewCell LX_snapshotView];
+            UIView *imageView = [collectionViewCell LX_snapshotView];
             imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            [self.currentView addSubview:imageView];
+            
+            collectionViewCell.highlighted = YES;
+            UIView *highlightedImageView = [collectionViewCell LX_snapshotView];
+            highlightedImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             
             // Match snapshot state to state of cell when it was lifted
             if ( cellHighlightedWhenPickedUp ) {
-                collectionViewCell.highlighted = YES;
-                highlightedImageView = [collectionViewCell LX_snapshotView];
-                highlightedImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-                [self.currentView addSubview:highlightedImageView];
-                
                 imageView.alpha = 0.0f;
             }
+            else {
+                highlightedImageView.alpha = 0.0f;
+            }
             
+            [self.currentView addSubview:imageView];
+            [self.currentView addSubview:highlightedImageView];
             [self.collectionView addSubview:self.currentView];
             
             self.currentViewCenter = self.currentView.center;
