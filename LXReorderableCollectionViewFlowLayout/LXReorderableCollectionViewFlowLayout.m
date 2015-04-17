@@ -345,9 +345,6 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
                      if ( strongSelf.reorderStartAnimationBlock ) {
                          strongSelf.reorderStartAnimationBlock( strongSelf.currentView );
                      }
-                     else {
-                         strongSelf.currentView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
-                     }
                  }
              }
              completion:^(BOOL finished) {
@@ -387,9 +384,6 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
                      if (strongSelf) {
                          if ( strongSelf.reorderCompletionAnimationBlock ) {
                              strongSelf.reorderCompletionAnimationBlock( strongSelf.currentView );
-                         }
-                         else {
-                             strongSelf.currentView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
                          }
                          strongSelf.currentView.center = layoutAttributes.center;
                      }
