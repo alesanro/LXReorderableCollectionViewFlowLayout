@@ -83,6 +83,9 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
 }
 
 - (void)setupCollectionView {
+    if (_longPressGestureRecognizer) {
+        [self.collectionView removeGestureRecognizer:_longPressGestureRecognizer];
+    }
     _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                                                 action:@selector(handleLongPressGesture:)];
     _longPressGestureRecognizer.delaysTouchesBegan = YES;
@@ -99,6 +102,9 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
     
     [self.collectionView addGestureRecognizer:_longPressGestureRecognizer];
     
+    if (_panGestureRecognizer) {
+        [self.collectionView removeGestureRecognizer:_panGestureRecognizer];
+    }
     _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                     action:@selector(handlePanGesture:)];
     _panGestureRecognizer.delegate = self;
@@ -499,6 +505,20 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
     }
     
     return layoutAttributes;
+}
+
+- (void)prepareForTransitionToLayout:(UICollectionViewLayout *)newLayout
+{
+    [super prepareForTransitionToLayout:newLayout];
+
+    [self.collectionView removeGestureRecognizer:self.longPressGestureRecognizer];
+    [self.collectionView removeGestureRecognizer:self.panGestureRecognizer];
+}
+
+- (void)prepareForTransitionFromLayout:(UICollectionViewLayout *)oldLayout
+{
+    [super prepareForTransitionFromLayout:oldLayout];
+    [self setupCollectionView];
 }
 
 #pragma mark - UIGestureRecognizerDelegate methods
