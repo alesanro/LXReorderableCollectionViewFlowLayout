@@ -7,9 +7,22 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, LXDependencyType) {
+    LXDependencyTypeMaster,
+    LXDependencyTypeSlave
+};
+
 @protocol LXReorderableCollectionViewDataSource;
 
-@interface LXReorderableCollectionViewFlowLayout : UICollectionViewFlowLayout <UIGestureRecognizerDelegate>
+@protocol LXReorderableCollectionViewDependencyDelegate
+
+- (void)handleLongSelectionAtIndexPath:(NSIndexPath *)indexPath withState:(UIGestureRecognizerState)state;
+
+- (void)handlePanDraggingAtPoint:(CGPoint)point withState:(UIGestureRecognizerState)state;
+
+@end
+
+@interface LXReorderableCollectionViewFlowLayout : UICollectionViewFlowLayout <UIGestureRecognizerDelegate, LXReorderableCollectionViewDependencyDelegate>
 
 @property (assign, nonatomic) CGFloat scrollingSpeed;
 @property (assign, nonatomic) UIEdgeInsets scrollingTriggerEdgeInsets;
@@ -22,6 +35,14 @@
 @property (assign, nonatomic) BOOL limitViewMovementToScrollDirection; // Defaults to NO
 
 @property (assign, nonatomic, readonly) id<LXReorderableCollectionViewDataSource> dataSource;
+
+@property (assign, nonatomic) LXDependencyType dependency;
+
+@property (strong, nonatomic, readonly) NSArray *slaveDependency;
+
+- (void)addSlaveDependency:(NSObject<LXReorderableCollectionViewDependencyDelegate> *)slaveDependency;
+
+- (void)removeSlaveDependency:(NSObject<LXReorderableCollectionViewDependencyDelegate> *)slaveDependency;
 
 - (void)setUpGestureRecognizersOnCollectionView __attribute__((deprecated("Calls to setUpGestureRecognizersOnCollectionView method are not longer needed as setup are done automatically through KVO.")));
 
