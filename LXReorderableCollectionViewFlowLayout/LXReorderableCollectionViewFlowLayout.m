@@ -94,6 +94,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
     _longPressGestureRecognizer.delaysTouchesBegan = YES;
     _longPressGestureRecognizer.delegate = self;
     _longPressGestureRecognizer.minimumPressDuration = .2f;
+    _longPressGestureRecognizer.cancelsTouchesInView = NO;
     
     // Links the default long press gesture recognizer to the custom long press gesture recognizer we are creating now
     // by enforcing failure dependency so that they doesn't clash.
@@ -588,6 +589,14 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if ([self.panGestureRecognizer isEqual:gestureRecognizer]) {
         return (self.selectedItemIndexPath != nil);
+    }
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isKindOfClass:[UIControl class]]) {
+        return NO;
     }
     return YES;
 }
