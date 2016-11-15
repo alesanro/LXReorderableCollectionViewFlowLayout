@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
     :git => 'https://github.com/lxcid/LXReorderableCollectionViewFlowLayout.git',
     :tag => s.version.to_s
   }
-  s.platform = :ios, '4.3'
+  s.platform = :ios, '7.1'
   s.source_files = 'LXReorderableCollectionViewFlowLayout/'
   s.public_header_files = 'LXReorderableCollectionViewFlowLayout/'
   s.frameworks = 'UIKit', 'CoreGraphics'
